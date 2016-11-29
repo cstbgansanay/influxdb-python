@@ -200,7 +200,6 @@ class SimpleTests(SingleTestCaseWithServerMixin,
         self.assertIn('user not found',
                       ctx.exception.content)
 
-    @unittest.skip("Broken as of 0.9.0")
     def test_revoke_admin_privileges(self):
         self.cli.create_user('test', 'test', admin=True)
         self.assertEqual([{'user': 'test', 'admin': True}],
