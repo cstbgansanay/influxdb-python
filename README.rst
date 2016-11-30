@@ -43,7 +43,7 @@ On Debian/Ubuntu, you can install it with this command::
 Dependencies
 ============
 
-The InfluxDB-Python distribution is supported and tested on Python 2.7, 3.4 and PyPy3.
+The InfluxDB-Python distribution is supported and tested on Python 2.7, 3.4, 3.5 and PyPy3.
 
 **Note:** Pypy, Python 3.2 and 3.3 are currently untested. See ``.travis.yml``.
 
