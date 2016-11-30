@@ -175,7 +175,7 @@ class DataFrameClient(InfluxDBClient):
             raise TypeError('Must be DataFrame, but type was: {0}.'
                             .format(type(dataframe)))
         if not (isinstance(dataframe.index, pd.tseries.period.PeriodIndex) or
-                    isinstance(dataframe.index, pd.tseries.index.DatetimeIndex)):
+                isinstance(dataframe.index, pd.tseries.index.DatetimeIndex)):
             raise TypeError('Must be DataFrame with DatetimeIndex or \
                             PeriodIndex.')
 
@@ -215,7 +215,7 @@ class DataFrameClient(InfluxDBClient):
             for ts, tag, rec in zip(dataframe.index,
                                     dataframe[tag_columns].to_dict('record'),
                                     dataframe[field_columns].to_dict('record'))
-            ]
+                 ]
 
         return points
 
@@ -232,7 +232,7 @@ class DataFrameClient(InfluxDBClient):
             raise TypeError('Must be DataFrame, but type was: {0}.'
                             .format(type(dataframe)))
         if not (isinstance(dataframe.index, pd.tseries.period.PeriodIndex) or
-                    isinstance(dataframe.index, pd.tseries.index.DatetimeIndex)):
+                isinstance(dataframe.index, pd.tseries.index.DatetimeIndex)):
             raise TypeError('Must be DataFrame with DatetimeIndex or \
                             PeriodIndex.')
 
