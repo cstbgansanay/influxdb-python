@@ -175,7 +175,7 @@ class DataFrameClient(InfluxDBClient):
             raise TypeError('Must be DataFrame, but type was: {0}.'
                             .format(type(dataframe)))
         if not (isinstance(dataframe.index, pd.tseries.period.PeriodIndex) or
-                isinstance(dataframe.index, pd.tseries.index.DatetimeIndex)):
+                    isinstance(dataframe.index, pd.tseries.index.DatetimeIndex)):
             raise TypeError('Must be DataFrame with DatetimeIndex or \
                             PeriodIndex.')
 
@@ -215,7 +215,7 @@ class DataFrameClient(InfluxDBClient):
             for ts, tag, rec in zip(dataframe.index,
                                     dataframe[tag_columns].to_dict('record'),
                                     dataframe[field_columns].to_dict('record'))
-        ]
+            ]
 
         return points
 
@@ -232,7 +232,7 @@ class DataFrameClient(InfluxDBClient):
             raise TypeError('Must be DataFrame, but type was: {0}.'
                             .format(type(dataframe)))
         if not (isinstance(dataframe.index, pd.tseries.period.PeriodIndex) or
-                isinstance(dataframe.index, pd.tseries.index.DatetimeIndex)):
+                    isinstance(dataframe.index, pd.tseries.index.DatetimeIndex)):
             raise TypeError('Must be DataFrame with DatetimeIndex or \
                             PeriodIndex.')
 
@@ -275,12 +275,12 @@ class DataFrameClient(InfluxDBClient):
 
         # Make array of timestamp ints
         if isinstance(dataframe.index, pd.tseries.period.PeriodIndex):
-            time = map(str, (dataframe.index.to_timestamp().values
-                             .astype(np.int64) // precision_factor)
-                             .astype(np.int64))
+            time = [str(x) for x in (dataframe.index.to_timestamp()
+                                     .values.astype(np.int64)
+                                     // precision_factor).astype(np.int64)]
         else:
-            time = map(str, (dataframe.index.values.astype(np.int64) //
-                             precision_factor).astype(np.int64))
+            time = [str(x) for x in (dataframe.index.values.astype(np.int64)
+                                     // precision_factor).astype(np.int64)]
 
         # If tag columns exist, make an array of formatted tag keys and values
         if tag_columns:
