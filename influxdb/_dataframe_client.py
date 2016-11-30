@@ -215,7 +215,7 @@ class DataFrameClient(InfluxDBClient):
             for ts, tag, rec in zip(dataframe.index,
                                     dataframe[tag_columns].to_dict('record'),
                                     dataframe[field_columns].to_dict('record'))
-                 ]
+        ]
 
         return points
 
