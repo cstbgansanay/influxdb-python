@@ -10,6 +10,7 @@ from __future__ import unicode_literals
 import math
 
 import pandas as pd
+import numpy as np
 
 from .client import InfluxDBClient
 from .line_protocol import _escape_tag
@@ -273,8 +274,13 @@ class DataFrameClient(InfluxDBClient):
         }.get(time_precision, 1)
 
         # Make array of timestamp ints
-        time = ((dataframe.index.to_datetime().values.astype(int) /
-                 precision_factor).astype(int).astype(str))
+        if isinstance(dataframe.index, pd.tseries.period.PeriodIndex):
+            time = map(str, (dataframe.index.to_timestamp().values
+                             .astype(np.int64) // precision_factor)
+                             .astype(np.int64))
+        else:
+            time = map(str, (dataframe.index.values.astype(np.int64) //
+                             precision_factor).astype(np.int64))
 
         # If tag columns exist, make an array of formatted tag keys and values
         if tag_columns:
